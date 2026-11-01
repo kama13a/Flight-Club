@@ -1,0 +1,50 @@
+# TODO 1: data_manager.py
+    # Responsible for talking to the Google Sheet
+    # API :
+        #1. Google Sheet Data Management - https://sheety.co/
+    # What to do :
+        #1. create new project in google sheets and connect to the sheety
+    # methods:
+        #1. add_row() -- creating a row for the new travel
+
+
+# TODO 2: flight_data.py
+    # Responsibility: Act as a clean container (a box) for ONE flight's information.
+    # What to do:
+        # Take the values passed to it and store them as attributes.
+    # Attributes:
+        # self.price
+        # self.origin_airport
+        # self.destination_airport
+        # self.out_date
+        # self.return_date
+    # Methods:
+        # Only __init__ (the constructor).
+    # Connection:
+        # Created by main.py (main.py gets the data and passes it in).
+
+
+
+# TODO 3: flight_search.py
+    # Responsibility: ONLY talking to the SerpApi (Flight Search API).
+    # What to do:
+        # Take the origin, destination, and date.
+        # Send the request to SerpApi.
+        # Return the raw JSON (messy data).
+    # Methods:
+        # search(origin, destination, out_date) -> returns raw JSON.
+    # Connections:
+        # Called by main.py.
+
+# TODO 4: main.py
+    # Mix all files
+
+# TODO 5: notification_manager.py
+    # Responsibility: ONLY sending messages to Telegram.
+    # What to do:
+        # Take a string message.
+        # Send it via the Telegram Bot API.
+    # Methods:
+        # send_message(self, message) -> returns True if sent, False if failed.
+    # Connections:
+        # Called by main.py (main.py passes the text to it).
