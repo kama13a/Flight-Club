@@ -12,6 +12,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
+
 load_dotenv()
 FLIGHT_URL="https://serpapi.com/search"
 
@@ -20,14 +21,15 @@ class FlightSearch:
         self.API_KEY = os.environ["API_KEY"]
         self.url = FLIGHT_URL
 
-    def search_fight(self, origin, destination, out_date):
+    def search_flight(self, origin, destination, out_date, return_date):
 
         params = {
             "engine" : "google_flights",
             "departure_id" : origin,
             "arrival_id" : destination,
             "outbound_date" : out_date,
-            "type" : "2",
+            "type" : "1",
+            "return_date" : return_date,
             "api_key" : self.API_KEY
         }
         response = requests.get(self.url, params=params)
@@ -35,4 +37,3 @@ class FlightSearch:
         data = response.json()
 
         return data
-
