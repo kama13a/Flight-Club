@@ -3,6 +3,7 @@ from flight_search import FlightSearch
 from flight_data import FlightData
 from datetime import datetime, timedelta
 import requests_cache
+from notification_manager import NotificationManager
 
 
 requests_cache.install_cache('flight_cache', expire_after=3600)
@@ -16,6 +17,7 @@ dm = DataManager()
 destinations = dm.get_destination_data()
 
 fs = FlightSearch()
+nm = NotificationManager()
 
 for dest in destinations:
     city_code = dest["iataCode"]
@@ -43,9 +45,11 @@ for dest in destinations:
         )
 
         if flight.price <= dest["lowestPrice"]:
-            print(f"there is flight to {dest['city']}! Price: {flight.price}")
+            message = f"Cheaper flight to {dest['city']}! Only {flight.price} (Targeted was {dest['lowestPrice']})"
+            nm.send_message(message)
+            print(message)
         else:
             print(f"{dest['city']} : Flight is {flight.price}")
 
     else:
-        print(f"No flights found to {dest['city']}")
+        print(f"x No flights found to {dest['city']}")
