@@ -8,6 +8,7 @@
         # search(origin, destination, out_date) -> returns raw JSON.
     # Connections:
         # Called by main.py.
+import json
 import os
 import requests
 from dotenv import load_dotenv
@@ -21,7 +22,7 @@ class FlightSearch:
         self.API_KEY = os.environ["API_KEY"]
         self.url = FLIGHT_URL
 
-    def search_flight(self, origin, destination, out_date, return_date):
+    def search_flight(self, origin, destination, out_date, return_date, is_direct=True):
 
         params = {
             "engine" : "google_flights",
@@ -32,6 +33,9 @@ class FlightSearch:
             "return_date" : return_date,
             "api_key" : self.API_KEY
         }
+        if is_direct:
+             params["stops"] = "0"
+
         response = requests.get(self.url, params=params)
         response.raise_for_status()
         data = response.json()
